@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node src/index.ts"
+    "start": "ts-node src/index.ts",
+    "dev": "./src/nodemon.json"
   },
   "keywords": [
     "postgres",
@@ -29,11 +30,14 @@
     "pg": "^7.3.0",
     "reflect-metadata": "^0.1.10",
     "routing-controllers": "^0.7.7",
-    "typeorm": "^0.2.7"
+    "typedi": "^0.8.0",
+    "typeorm": "^0.2.7",
+    "typeorm-typedi-extensions": "^0.2.1"
   },
   "devDependencies": {
     "@types/node": "^8.0.29",
-    "ts-node": "^3.3.0",
+    "nodemon": "^1.18.4",
+    "ts-node": "^7.0.1",
     "typescript": "^2.9.2"
   }
 }
