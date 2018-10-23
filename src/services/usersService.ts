@@ -14,6 +14,10 @@ export class UserService {
         return this.repository.find()
     }
 
+    getById(userId: number) {
+        return this.repository.findOne({ id: userId })
+    }
+
     add(user: User) {
         return this.repository.save(user)
     }

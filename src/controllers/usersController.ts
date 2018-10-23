@@ -1,5 +1,5 @@
 import { UserService } from './../services/usersService';
-import { Controller, Get, Post, Body } from 'routing-controllers'
+import { Controller, Get, Post, Body, Param, Delete } from 'routing-controllers'
 import { User } from '../entity/User';
 
 @Controller('/users')
@@ -8,15 +8,23 @@ export class UserController {
     constructor( private userService: UserService ) {}
 
     @Get('/')
-    get(){
-        console.log(1)
+    async get(){
         return this.userService.get()
+    }
+    
+    @Get('/:id')
+    getById( @Param('id') id: number ){
+        return this.userService.getById(id)
     }
 
     @Post('/')
-    add(
-        @Body() user: User
-    ){  
+    add( @Body() user: User ){  
         return this.userService.add(user)
     }
+
+    @Delete('/:id')
+    delete( @Param('id') id: number ){
+        return this.userService.delete(id)
+    }
+
 }
