@@ -15,7 +15,7 @@ export class UserController {
     async get(){
         return this.userRepository.find()
     }
-    
+
     @Get('/:id')
     getById( @Param('id') id: number ){
         return this.userRepository.findOne({ id: id })
@@ -30,5 +30,4 @@ export class UserController {
     delete( @Param('id') id: number ){
         return this.userRepository.delete(id)
     }
-
 }
