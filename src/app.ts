@@ -1,11 +1,7 @@
 import "reflect-metadata";
-import { createConnection, useContainer as typeormUseContainer } from "typeorm"
-import { createKoaServer, useContainer as routingUserContainer } from "routing-controllers"
+import { createConnection } from "typeorm"
+import { createKoaServer } from "routing-controllers"
 import * as dbConfiguration from '../ormconfig'
-import { Container } from "typedi"
-
-routingUserContainer(Container)
-typeormUseContainer(Container)
 
 export default createConnection(<any> dbConfiguration).then(connection => ({
     connection,
