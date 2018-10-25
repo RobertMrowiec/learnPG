@@ -1,7 +1,9 @@
-import { Controller, Get, Post, Body, Param, Delete } from 'routing-controllers'
+import { Controller, Get, Post, Body, Param, Delete, Authorized } from 'routing-controllers'
 import { User } from '../entity/User';
 import { Repository, getConnectionManager } from 'typeorm';
 import * as bcrypt from 'bcrypt'
+
+@Authorized()
 @Controller('/users')
 export class UserController {
 

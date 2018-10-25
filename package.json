@@ -36,7 +36,8 @@
     "routing-controllers": "^0.7.7",
     "typedi": "^0.8.0",
     "typeorm": "^0.2.7",
-    "typeorm-typedi-extensions": "^0.2.1"
+    "typeorm-typedi-extensions": "^0.2.1",
+    "util": "^0.11.0"
   },
   "devDependencies": {
     "@types/node": "^8.0.29",

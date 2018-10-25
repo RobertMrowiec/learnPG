@@ -1,8 +1,10 @@
 import { Repository, getConnectionManager } from 'typeorm';
-import { Controller, Body, Post } from "routing-controllers";
+import { Controller, Body, Post, UnauthorizedError } from "routing-controllers";
 import { User } from '../entity/User';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken'
+import secret from '../secret'
+
 @Controller('/auth')
 
 export class AuthController {
@@ -13,12 +15,17 @@ export class AuthController {
         this.userRepository = getConnectionManager().get().getRepository(User)
     }
     
-    @Post('/checkPassword')
+    @Post('/login')
     async check(@Body() login: User ){
         const tempUser: any = await this.userRepository.findOne({email: login.email})
+        if (!tempUser) throw new UnauthorizedError('Wrong credentials')
+        
         const response = await bcrypt.compareSync(login.password, tempUser.password)
-        if (response) {
-            return jwt.sign({...tempUser}, process.env.secret)
+        if (!response) throw new UnauthorizedError('Wrong credentials')
+        
+        return {
+            user: tempUser,
+            token: jwt.sign({...tempUser}, secret, { expiresIn: 60*15 })
         }
     }
 }
