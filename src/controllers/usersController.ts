@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, Delete } from 'routing-controllers'
 import { User } from '../entity/User';
 import { Repository, getConnectionManager } from 'typeorm';
-
+import * as bcrypt from 'bcrypt'
 @Controller('/users')
 export class UserController {
 
@@ -22,7 +22,8 @@ export class UserController {
     }
 
     @Post('/')
-    add( @Body() user: User ){  
+    add( @Body() user: User ){
+        user.password = bcrypt.hashSync(user.password, 5)
         return this.userRepository.save(user)
     }
 
