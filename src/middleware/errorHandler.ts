@@ -6,8 +6,6 @@ export class ErrorHandlerMiddleware implements KoaMiddlewareInterface {
         try {
             await next()
         } catch (err) {
-            console.log(err);
-            
             ctx.status = err.httpCode || 500
 
             if (err.code === "23505" || err.code === "22P02" || err.code === "23502") {
