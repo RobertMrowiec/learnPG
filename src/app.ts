@@ -15,6 +15,7 @@ export default createConnection(<any> dbConfiguration).then(connection => ({
         controllers: [
             `${__dirname}/controllers/!(*.spec.js|*.spec.ts)`
         ],
+        cors: true,
         middlewares: [`${__dirname}/middleware/!(*.spec.js|*.spec.ts)`],
         defaultErrorHandler: false
     })
