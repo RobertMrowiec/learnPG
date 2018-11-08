@@ -14,24 +14,24 @@ export class UserController {
     }
 
     @Get('/')
-    async get(@CurrentUser() currentUser: User){
+    get(@CurrentUser() currentUser: User){
         console.log('currentUser ? ', currentUser);
         return this.userRepository.find()
     }
 
     @Get('/:id')
-    getById( @Param('id') id: number ){
+    getById(@Param('id') id: number){
         return this.userRepository.findOne({ id: id })
     }
 
     @Post('/')
-    add( @Body() user: User ){
+    add(@Body() user: User){
         user.password = bcrypt.hashSync(user.password, 5)
         return this.userRepository.save(user)
     }
 
     @Delete('/:id')
-    delete( @Param('id') id: number ){
+    delete(@Param('id') id: number){
         return this.userRepository.delete(id)
     }
 }

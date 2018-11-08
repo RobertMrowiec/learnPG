@@ -14,7 +14,17 @@ export class ProjectController {
     }
 
     @Get('/')
-    async get(@CurrentUser() currentUser: User){
-        
+    get(@CurrentUser() currentUser: User){
+        return this.projectRepository.find()
+    }
+
+    @Post('/')
+    add(@Body() project: Project){
+        return this.projectRepository.save(project)
+    }
+
+    @Delete('/:id')
+    delete(@Param('id') id: number){
+        return this.projectRepository.delete(id)
     }
 }
