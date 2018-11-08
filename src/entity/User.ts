@@ -1,6 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm";
-import { Comment } from "./Comment";
-
+import {Entity, PrimaryGeneratedColumn, Column, ManyToMany} from "typeorm";
+import {Project} from './Project'
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
@@ -18,6 +17,6 @@ export class User {
     @Column()
     surname: string;
 
-    @OneToMany(type => Comment, comment => comment.user)
-    comments: Comment[]
+    @ManyToMany(type => Project, project => project.users)
+    projects: Project[]
 }
