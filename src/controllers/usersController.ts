@@ -14,8 +14,7 @@ export class UserController {
     }
 
     @Get('/')
-    get(@CurrentUser() currentUser: User){
-        console.log('currentUser ? ', currentUser);
+    get(){
         return this.userRepository.find()
     }
 

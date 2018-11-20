@@ -1,8 +1,9 @@
 import { getConnectionManager } from 'typeorm';
-import { Controller, Get, Post, Body, Param, Delete, Authorized, CurrentUser } from 'routing-controllers'
+import { Controller, Get, Post, Body, Param, Delete, Authorized, CurrentUser, Put, UploadedFile } from 'routing-controllers'
 import { Project } from '../entity/Project'
 import { User } from '../entity/User';
 import { Repository } from 'typeorm';
+import { fileUploadOptions } from '../common';
 
 @Authorized()
 @Controller('/projects')
@@ -14,8 +15,13 @@ export class ProjectController {
     }
 
     @Get('/')
-    get(@CurrentUser() currentUser: User){
+    async get(){
         return this.projectRepository.find()
+    }
+
+    @Get('/:id')
+    async getById(@Param('id') id: number){
+        return this.projectRepository.findOne({id})
     }
 
     @Post('/')
@@ -27,4 +33,14 @@ export class ProjectController {
     delete(@Param('id') id: number){
         return this.projectRepository.delete(id)
     }
+    
+    @Put('/:id')
+    update( 
+        @Body() body: object,
+        @Param('id') id: number,
+        @UploadedFile("file", { options: fileUploadOptions}) file: any 
+    ) {
+        const link = `http://localhost:8002/uploads/${file.fieldname}`
+        return this.projectRepository.update(id, body)
+    }    
 }

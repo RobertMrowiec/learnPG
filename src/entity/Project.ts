@@ -9,10 +9,16 @@ export class Project {
     @Column({ unique: true })
     name: string;
 
-    @Column()
-    price: number;
+    @Column({ nullable: true} )
+    description: string;
 
-    @Column({default: 'http://www.bigfish.pk/images/company/defaultLogo.jpg'})
+    @Column({ nullable: true, type: "numeric", precision: 10, scale: 2 })
+    priceNetto: string;
+
+    @Column({ nullable: true, type: "numeric", precision: 10, scale: 2 })
+    priceBrutto: string;
+
+    @Column({ default: 'http://www.bigfish.pk/images/company/defaultLogo.jpg' })
     photo: string
 
     @ManyToMany(type => User, user => user.projects)

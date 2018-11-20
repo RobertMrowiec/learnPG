@@ -19,10 +19,10 @@ export class AuthController {
     async check(@Body() login: User ){
         const tempUser: any = await this.userRepository.findOne({email: login.email})
         if (!tempUser) throw new UnauthorizedError('Wrong credentials')
-        
+
         const response = await bcrypt.compareSync(login.password, tempUser.password)
         if (!response) throw new UnauthorizedError('Wrong credentials')
-        
+
         return {
             user: tempUser,
             token: jwt.sign({...tempUser}, secret, { expiresIn: 60*15 })
