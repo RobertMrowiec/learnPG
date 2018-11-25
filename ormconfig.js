@@ -2,11 +2,11 @@ const path = require('path')
 
 module.exports = {
     "type": "postgres",
-    "host": process.env.POSTGRES_HOST || "localhost",
-    "port": process.env.DB_PORT || 5432,
-    "username": process.env.POSTGRES_USER || "postgres",
-    "password": process.env.POSTGRES_PASSWORD || "123",
-    "database": process.env.POSTGRES_DB || "carsapp",
+    "host": process.env.RDS_HOSTNAME || "localhost",
+    "port": process.env.RDS_PORT || 5432,
+    "username": process.env.RDS_USERNAME || "postgres",
+    "password": process.env.RDS_PASSWORD || "123",
+    "database": process.env.RDS_DB_NAME || "carsapp",
     "synchronize": true,
     "logging": false,
     "entities": [
