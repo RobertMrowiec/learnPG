@@ -38,9 +38,8 @@ export class ProjectController {
     update( 
         @Body() body: object,
         @Param('id') id: number,
-        @UploadedFile("file", { options: fileUploadOptions}) file: any 
+        @UploadedFile("file", { options: fileUploadOptions}) file: any,
     ) {
-        const link = `http://localhost:8002/uploads/${file.fieldname}`
-        return this.projectRepository.update(id, body)
+        return this.projectRepository.update(id, {...body, photo: file.location})
     }    
 }
