@@ -6,8 +6,6 @@ import * as dotenv from 'dotenv'
 import { authFunction, currentUserFunction } from "./auth";
 
 dotenv.config()
-console.log(process.env);
-
 const dbConf = dbConfiguration(process.env, 'prod')
 
 export default createConnection(<any> dbConf).then(connection => ({
