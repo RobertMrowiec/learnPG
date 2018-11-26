@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node src/index.ts",
-    "dev": "./src/nodemon.json"
+    "dev": "./src/nodemon.json",
+    "forever": "forever start -c 'ts-node' src/index.ts"
   },
   "keywords": [
     "postgres",
@@ -23,7 +24,7 @@
     "@types/koa-bodyparser": "^5.0.1",
     "@types/koa-router": "^7.0.32",
     "@types/node": "^10.12.0",
-    "aws-sdk": "^2.361.0",
+    "aws-sdk": "^2.362.0",
     "bcrypt": "^3.0.2",
     "dotenv": "^6.1.0",
     "jsonwebtoken": "^8.3.0",
