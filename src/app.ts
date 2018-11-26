@@ -8,7 +8,6 @@ import { Container } from "typedi"
 
 
 dotenv.config()
-console.log(process.env);
 
 let dbConf = dbConfiguration[0] // 0 to AWS, 1 to LOCALHOST
 
