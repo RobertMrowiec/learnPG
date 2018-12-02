@@ -27,6 +27,7 @@
     "aws-sdk": "^2.362.0",
     "bcrypt": "^3.0.2",
     "dotenv": "^6.1.0",
+    "emailjs": "^2.2.0",
     "jsonwebtoken": "^8.3.0",
     "kcors": "^2.2.2",
     "koa": "^2.5.3",

@@ -15,7 +15,10 @@ export class User {
     @Column()
     name: string;
 
-    @Column()
+    @Column({type: 'boolean', default: false})
+    activated: boolean
+
+    @Column({ nullable: true })
     password: string;
 
     @Column()
