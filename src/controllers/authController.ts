@@ -25,7 +25,7 @@ export class AuthController {
 
         return {
             user: tempUser,
-            token: jwt.sign({...tempUser}, secret, { expiresIn: 60*15 })
+            token: jwt.sign({...tempUser}, secret, { expiresIn: 60*15*100 })
         }
     }
 }

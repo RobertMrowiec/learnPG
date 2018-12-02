@@ -38,8 +38,18 @@ export class ProjectController {
     update( 
         @Body() body: object,
         @Param('id') id: number,
+    ) {
+        
+        return this.projectRepository.update(id, body)
+    }
+    
+    @Put('/:id/upload')
+    uploadPhoto( 
+        @Body() body: object,
+        @Param('id') id: number,
         @UploadedFile("file", { options: fileUploadOptions}) file: any,
     ) {
         return this.projectRepository.update(id, {...body, photo: file.location})
     }    
+
 }

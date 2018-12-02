@@ -18,7 +18,7 @@ export class Project {
     @Column({ nullable: true, type: "numeric", precision: 10, scale: 2 })
     priceBrutto: string;
 
-    @Column({ default: 'http://www.bigfish.pk/images/company/defaultLogo.jpg' })
+    @Column({ default: 'http://inteligenciamm.com.br/wp-content/uploads/2015/10/Logo-Default.png' })
     photo: string
 
     @ManyToMany(type => User, user => user.projects)
