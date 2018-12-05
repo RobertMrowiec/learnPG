@@ -4,6 +4,7 @@ import { InjectConnection } from "typeorm-typedi-extensions"
 import { User } from "../entity/User";
 import { Body, Param } from "routing-controllers";
 import sendMail from "../email";
+import * as bcrypt from 'bcrypt'
 
 @Service()
 export class UserService {
@@ -36,4 +37,12 @@ export class UserService {
         return this.repository.delete(id)
     }
 
+    async update(id: number, body: any){
+        body.password = bcrypt.hashSync(body.password, 5)
+        await this.repository.update(id, {password: body.password, activated: true})
+        return {
+            status: 'Password saved succesfully',
+            user: await this.repository.findOne({id: id})
+        }
+    }
 }
