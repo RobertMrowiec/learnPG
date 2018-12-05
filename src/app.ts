@@ -1,12 +1,22 @@
-import "reflect-metadata";
-import { createConnection } from "typeorm"
-import { createKoaServer } from "routing-controllers"
-import { dbConfiguration } from '../ormconfig'
-import * as dotenv from 'dotenv'
 import { authFunction, currentUserFunction } from "./auth";
+import "reflect-metadata";
+import { createConnection, useContainer as typeormUseContainer } from "typeorm"
+import { createKoaServer, useContainer as routingUserContainer } from "routing-controllers"
+import * as dbConfiguration from '../ormconfig'
+import * as dotenv from 'dotenv'
+import { Container } from "typedi"
+
 
 dotenv.config()
-const dbConf = dbConfiguration(process.env, 'prod')
+
+let dbConf = dbConfiguration[0] // 0 to AWS, 1 to LOCALHOST
+
+if (process.env.HOME === '/Users/robert'){
+    dbConf = dbConfiguration[1]
+}
+
+routingUserContainer(Container)
+typeormUseContainer(Container)
 
 export default createConnection(<any> dbConf).then(connection => ({
     connection,

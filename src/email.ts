@@ -13,5 +13,5 @@ export default function sendMail (receiver, subject, text, cc = '') {
         from: "RobertM@Payapp.com",
         to: receiver,
         subject
-    }, (err, message) => console.log(err || message))
+    }, err => console.log(err))
 }

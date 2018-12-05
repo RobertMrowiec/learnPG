@@ -1,48 +1,37 @@
 import { Controller, Get, Post, Body, Param, Delete, Authorized, CurrentUser, Put } from 'routing-controllers'
 import { User } from '../entity/User';
-import { Repository, getConnectionManager, Server } from 'typeorm';
-import * as bcrypt from 'bcrypt'
-import sendMail from '../email'
+import { UserService } from '../services/userService';
 
 @Controller('/users')
 export class UserController {
 
-    private userRepository: Repository<User>;
-
-    constructor() {
-        this.userRepository = getConnectionManager().get().getRepository(User);
-    }
+    constructor(private userService: UserService) { }
 
     @Get('/')
     get(){
-        return this.userRepository.find()
+        return this.userService.get()
     }
 
     @Get('/:id')
-    getById(@Param('id') id: number){
-        return this.userRepository.findOne({ id: id })
+    async getById(@Param('id') id: number){
+        await this.userService.getById(id).catch(x => x)
     }
 
-    @Authorized()
+    // @Authorized()
     @Post('/')
     async add(@Body() user: User){
-        const savedUser = await this.userRepository.save(user)
-        sendMail(user.email, 'Thank You for register in my app', `Here is a link to generate Your password: http://localhost:3000/login/password/${savedUser.id} `)
-        return {
-            status: 'Saved succesfully',
-            user: savedUser
-        }
+        return this.userService.add(user)
     }
 
-    @Authorized()
+    // @Authorized()
     @Delete('/:id')
     delete(@Param('id') id: number){
-        return this.userRepository.delete(id)
+        return this.userService.delete(id)
     }
 
     @Put('/setpassword/:id')
-    setPassword(@Param('id') id: number, @Body() password: string){
-        password = bcrypt.hashSync(password, 5)
-        return this.userRepository.update(id, {password, activated: true})
+    async setPassword(@Param('id') id: number, @Body() body: any){
+        return this.userService.update(id, body) 
     }
+
 }
