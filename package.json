@@ -31,7 +31,6 @@
     "chai-spies": "^1.0.0",
     "dotenv": "^6.1.0",
     "emailjs": "^2.2.0",
-    "jest-plugin-context": "^2.9.0",
     "jsonwebtoken": "^8.3.0",
     "kcors": "^2.2.2",
     "koa": "^2.5.3",

@@ -5,8 +5,7 @@ export class ErrorHandlerMiddleware implements KoaMiddlewareInterface {
     async use(ctx: any, next: (err?: any) => Promise<any>): Promise<any> {
         try {
             await next()
-        } catch (err) {
-            
+        } catch (err) {            
             ctx.status = err.httpCode || 500
             
             if (err.code === "23505" || err.code === "22P02" || err.code === "23502") {
