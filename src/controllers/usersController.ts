@@ -31,6 +31,6 @@ export class UserController {
 
     @Put('/setpassword/:id')
     async setPassword(@Param('id') id: number, @Body() body: any){
-        return this.userService.update(id, body)
+        return this.userService.update(id, body) 
     }
 }
