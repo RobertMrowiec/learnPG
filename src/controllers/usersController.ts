@@ -3,52 +3,42 @@ import { User } from '../entity/User';
 import { Repository, getConnectionManager, Server } from 'typeorm';
 import * as bcrypt from 'bcrypt'
 import sendMail from '../email'
+import { UserService } from '../services/userService';
 
 @Controller('/users')
 export class UserController {
 
-    private userRepository: Repository<User>
-    
-    constructor() {
-        this.userRepository = getConnectionManager().get().getRepository(User);
-    }
+    constructor(private userService: UserService) { }
 
     @Get('/')
     get(){
-        return this.userRepository.find()
+        return this.userService.get()
     }
 
     @Get('/:id')
-    getById(@Param('id') id: number){
-        return this.userRepository.findOne({ id: id })
+    async getById(@Param('id') id: number){
+        await this.userService.getById(id).catch(x => x)
     }
 
-    @Authorized()
+    // @Authorized()
     @Post('/')
     async add(@Body() user: User){
-        const savedUser = await this.userRepository.save(user)
-        
-        sendMail(user.email, 'Thank You for register in my app', `Here is a link to generate Your password: http://localhost:3000/login/password/${savedUser.id} `)
-        
-        return {
-            status: 'Saved succesfully',
-            user: savedUser
-        }
+        return this.userService.add(user)
     }
 
-    @Authorized()
+    // @Authorized()
     @Delete('/:id')
     delete(@Param('id') id: number){
-        return this.userRepository.delete(id)
+        return this.userService.delete(id)
     }
 
-    @Put('/setpassword/:id')
-    async setPassword(@Param('id') id: number, @Body() body: any){
-        body.password = bcrypt.hashSync(body.password, 5)
-        const user = await this.userRepository.update(id, {password: body.password, activated: true})
-        return {
-            status: 'Password saved succesfully',
-            user: await this.userRepository.findOne({id: id})
-        }
-    }
+    // @Put('/setpassword/:id')
+    // async setPassword(@Param('id') id: number, @Body() body: any){
+    //     body.password = bcrypt.hashSync(body.password, 5)
+    //     const user = await this.userService.update(id, {password: body.password, activated: true})
+    //     return {
+    //         status: 'Password saved succesfully',
+    //         user: await this.userService.findOne({id: id})
+    //     }
+    // }
 }
