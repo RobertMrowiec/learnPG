@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete, Authorized, CurrentUser, Put } from 'routing-controllers'
+import { Controller, Get, Post, Body, Param, Delete, Put } from 'routing-controllers'
 import { User } from '../entity/User';
 import { UserService } from '../services/userService';
 

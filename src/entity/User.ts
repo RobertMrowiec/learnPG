@@ -1,5 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column, ManyToMany} from "typeorm";
-import {Project} from './Project'
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from "typeorm";
+import { Project } from './Project'
 
 const settlementEnum = ['B2B', 'UoP']
 type settlementMethod = 'B2B' | 'UoP'
