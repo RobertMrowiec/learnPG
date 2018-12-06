@@ -1,5 +1,5 @@
-import { AuthController } from './../controllers/authController';
-import { AuthService } from "../services/authService";
+import { AuthController } from '../../controllers/authController';
+import { AuthService } from "../../services/authService";
 
 let controller: AuthController
 let authService: AuthService
