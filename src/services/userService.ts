@@ -41,7 +41,6 @@ export class UserService {
     }
     
     async setPassword(id: number, body: any){
-
         body.password = bcrypt.hashSync(body.password, 5)
         await this.repository.update(id, {password: body.password, activated: true})
         return {

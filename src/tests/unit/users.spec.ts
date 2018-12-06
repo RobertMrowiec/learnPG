@@ -47,5 +47,4 @@ describe('User Controller', () => {
         await controller.setPassword(3, <any> {password: 'test'})
         expect(userService.setPassword).toBeCalledWith(3, {password: 'test'})
     })
-
 })
