@@ -1,19 +1,12 @@
-import { authFunction, currentUserFunction } from "./auth";
-import "reflect-metadata";
 import { createConnection, useContainer as typeormUseContainer } from "typeorm"
 import { createKoaServer, useContainer as routingUserContainer } from "routing-controllers"
-import * as dbConfiguration from '../ormconfig'
-import * as dotenv from 'dotenv'
+import { authFunction, currentUserFunction } from "./auth";
 import { Container } from "typedi"
+import * as dbConfiguration from '../ormconfig_dev'
+import * as awsConfiguration from '../ormconfig'
+import "reflect-metadata";
 
-
-dotenv.config()
-
-let dbConf = dbConfiguration[0] // 0 is AWS, 1 is LOCALHOST
-
-if (process.env.HOME === '/Users/robert'){
-    dbConf = dbConfiguration[1]
-}
+let dbConf = process.env.HOME == '/Users/robert' ? dbConfiguration : awsConfiguration
 
 routingUserContainer(Container)
 typeormUseContainer(Container)
