@@ -1,3 +1,4 @@
+import * as path from 'path'
 import * as AWS from 'aws-sdk'
 import * as multerS3 from 'multer-s3'
 
@@ -30,4 +31,17 @@ export const fileUploadOptions = {
         fieldNameSize: 255,
         fileSize: 1024 * 1024 * 2
     }
+}
+
+export const obj = {
+    "type": "postgres",
+    "port": 5432,
+    "synchronize": true,
+    "logging": false,
+    "entities": [
+        path.join(__dirname, 'src/entity/**/!(*.spec.js|*.spec.ts)'),
+    ],
+    "migrations": [
+        path.join(__dirname, 'src/entity/**/!(*.spec.js|*.spec.ts)'),
+    ]
 }
