@@ -38,5 +38,4 @@ export class UserController {
     setPassword(@Param('id') id: number, @Body() body: any){
         return this.userService.setPassword(id, body) 
     }
-
 }
