@@ -1,5 +1,5 @@
-import { UserService } from "../services/userService"
-import { UserController } from "../controllers/usersController"
+import { UserService } from "../../services/userService"
+import { UserController } from "../../controllers/usersController"
 
 let controller: UserController
 let userService: UserService
@@ -29,15 +29,15 @@ describe('User Controller', () => {
     })
 
     test('Should add new User', async () => {
-        await controller.add(<any> { email: 'qwe@gmail.com', name:'Test', surname: 'qwe'})
-        expect(userService.add).toBeCalledWith({ email: 'qwe@gmail.com', name:'Test', surname: 'qwe'})
+        await controller.add(<any> { email: 'qwe@gmail.com', name:'Test', surname: 'qwe', projects: [{id: 1}]})
+        expect(userService.add).toBeCalledWith({ email: 'qwe@gmail.com', name:'Test', surname: 'qwe', projects: [{id: 1}]})
     })
-    
+
     test('Should delete User by specific ID', async () => {
         await controller.delete(5)
         expect(userService.delete).toBeCalledWith(5)
     })
-    
+
     test('Should update User by specific ID', async () => {
         await controller.update(3, <any> {name: 'John'})
         expect(userService.update).toBeCalledWith(3, {name: 'John'})

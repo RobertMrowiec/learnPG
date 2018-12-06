@@ -11,7 +11,7 @@ const s3 = new AWS.S3();
 export const fileUploadOptions = {
     storage: multerS3({
         s3: s3,
-        bucket: process.env.Bucket,
+        bucket: process.env.Bucket || 'managepayapp',
         acl: 'public-read',
         metadata: function (req, file, cb) { 
             cb(null, { fieldName: file.fieldname })
