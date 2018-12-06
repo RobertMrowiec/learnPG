@@ -29,6 +29,11 @@ export class UserController {
         return this.userService.delete(id)
     }
 
+    @Put('/:id')
+    update(@Param('id') id: number, @Body() body: User){
+        return this.userService.update(id, body)
+    }
+
     @Put('/setpassword/:id')
     async setPassword(@Param('id') id: number, @Body() body: any){
         return this.userService.update(id, body) 

@@ -2,7 +2,6 @@ import { Service } from "typedi"
 import { Connection, Repository } from "typeorm"
 import { InjectConnection } from "typeorm-typedi-extensions"
 import { User } from "../entity/User";
-import { Body, Param } from "routing-controllers";
 import sendMail from "../email";
 import * as bcrypt from 'bcrypt'
 
