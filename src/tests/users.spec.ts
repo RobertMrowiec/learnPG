@@ -10,7 +10,8 @@ beforeAll(() => {
         getById: jest.fn(() => Promise.resolve()),
         add: jest.fn(() => Promise.resolve()),
         delete: jest.fn(() => Promise.resolve()),
-        update: jest.fn(() => Promise.resolve())
+        update: jest.fn(() => Promise.resolve()),
+        setPassword: jest.fn(() => Promise.resolve())
     }
     controller = new UserController(<any>userService)
 })
@@ -40,6 +41,11 @@ describe('User Controller', () => {
     test('Should update User by specific ID', async () => {
         await controller.update(3, <any> {name: 'John'})
         expect(userService.update).toBeCalledWith(3, {name: 'John'})
+    })
+
+    test('Should add password to User', async () => {
+        await controller.setPassword(3, <any> {password: 'test'})
+        expect(userService.setPassword).toBeCalledWith(3, {password: 'test'})
     })
 
 })
