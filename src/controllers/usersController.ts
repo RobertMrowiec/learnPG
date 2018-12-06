@@ -13,13 +13,13 @@ export class UserController {
     }
 
     @Get('/:id')
-    async getById(@Param('id') id: number){
-        await this.userService.getById(id).catch(x => x)
+    getById(@Param('id') id: number){
+        return this.userService.getById(id)
     }
 
     // @Authorized()
     @Post('/')
-    async add(@Body() user: User){
+    add(@Body() user: User){
         return this.userService.add(user)
     }
 
@@ -29,9 +29,13 @@ export class UserController {
         return this.userService.delete(id)
     }
 
-    @Put('/setpassword/:id')
-    async setPassword(@Param('id') id: number, @Body() body: any){
-        return this.userService.update(id, body) 
+    @Put('/:id')
+    update(@Param('id') id: number, @Body() body: User){
+        return this.userService.update(id, body)
     }
 
+    @Put('/setpassword/:id')
+    setPassword(@Param('id') id: number, @Body() body: any){
+        return this.userService.setPassword(id, body) 
+    }
 }
