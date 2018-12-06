@@ -8,7 +8,7 @@ import * as bcrypt from 'bcrypt'
 @Service()
 export class UserService {
 
-    private repository: Repository<User>
+    private repository: Repository <User>
     constructor(@InjectConnection() connection: Connection) {
         this.repository = connection.getRepository(User)
     }

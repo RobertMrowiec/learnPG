@@ -1,5 +1,5 @@
+const email = require('emailjs/email')
 export default function sendMail (receiver, subject, text, cc = '') {
-    const email = require('emailjs/email')
 
     const server = email.server.connect({
         user: process.env.Mail_username,
@@ -8,7 +8,7 @@ export default function sendMail (receiver, subject, text, cc = '') {
         tls: true
     });
     
-    server.send({
+    return server.send({
         text,
         from: "RobertM@Payapp.com",
         to: receiver,
