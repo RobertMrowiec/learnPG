@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete, Authorized, CurrentUser, Put, UploadedFile, Patch } from 'routing-controllers'
+import { Controller, Get, Post, Body, Param, Delete, Authorized, Put, UploadedFile, Patch } from 'routing-controllers'
 import { Project } from '../entity/Project'
 import { fileUploadOptions } from '../common';
 import { ProjectService } from '../services/projectService';

@@ -1,6 +1,6 @@
 import { Action, UnauthorizedError, BadRequestError } from "routing-controllers";
 import { User } from "./entity/User";
-import { getManager, Repository, getConnectionManager} from "typeorm";
+import { getConnectionManager} from "typeorm";
 import * as jwt from 'jsonwebtoken';
 import secret from './secret';
 import { promisify } from 'util';
@@ -9,9 +9,9 @@ const verify = promisify(jwt.verify)
 export async function authFunction(action: Action) {
 
     let userRepository = getConnectionManager().get().getRepository(User);    
-    
+
     const token = action.request.headers.authorization
-    
+
     if (!token) throw new UnauthorizedError('You must provide correct token')
     
     const decoded: any = typeof token === 'string' && token.startsWith('Bearer ')

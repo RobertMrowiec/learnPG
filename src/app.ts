@@ -9,7 +9,7 @@ import { Container } from "typedi"
 
 dotenv.config()
 
-let dbConf = dbConfiguration[0] // 0 to AWS, 1 to LOCALHOST
+let dbConf = dbConfiguration[0] // 0 is AWS, 1 is LOCALHOST
 
 if (process.env.HOME === '/Users/robert'){
     dbConf = dbConfiguration[1]

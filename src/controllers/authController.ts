@@ -1,6 +1,5 @@
 import { AuthService } from './../services/authService';
-import {  getConnectionManager } from 'typeorm';
-import { Controller, Body, Post, UnauthorizedError } from "routing-controllers";
+import { Controller, Body, Post } from "routing-controllers";
 import { User } from '../entity/User';
 
 @Controller('/auth')
