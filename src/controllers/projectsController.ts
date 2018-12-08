@@ -3,7 +3,6 @@ import { Project } from '../entity/Project'
 import { fileUploadOptions } from '../common';
 import { ProjectService } from '../services/projectService';
 
-@Authorized()
 @Controller('/projects')
 export class ProjectController {
     constructor(private projectService: ProjectService) {}
@@ -18,12 +17,14 @@ export class ProjectController {
         return this.projectService.getById(id)
     }
 
+    // @Authorized()
     @Post('/')
     add(@Body() project: Project){
         return this.projectService.add(project)
     }
 
-    @Put('/:id')
+    // @Authorized()
+    @Patch('/:id')
     update( 
         @Param('id') id: number,
         @Body() body: Project,
@@ -31,7 +32,8 @@ export class ProjectController {
         return this.projectService.update(id, body)
     }
 
-    @Patch('/:id/upload')
+    // @Authorized()
+    @Put('/:id/upload')
     uploadPhoto( 
         @Param('id') id: number,
         @UploadedFile("file", { options: fileUploadOptions}) file: any,
@@ -39,6 +41,7 @@ export class ProjectController {
         return this.projectService.uploadPhoto(id, file)
     }
 
+    // @Authorized()
     @Delete('/:id')
     delete(@Param('id') id: number){
         return this.projectService.delete(id)
