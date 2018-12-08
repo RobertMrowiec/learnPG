@@ -23,11 +23,15 @@ export class ProjectService {
     }
 
     update(id: number, body: Project) {
-        return this.repository.update(id, body)
+        return this.repository.update(id, body).then(x => {
+            return this.repository.findOne({id})
+        })
     }
 
     uploadPhoto(id: number, file: any) {
-        return this.repository.update(id, {photo: file.location})
+        return this.repository.update(id, {photo: file.location}).then(x => {
+            return this.repository.findOne({id})
+        })
     }
 
     delete(id: number) {
