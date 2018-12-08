@@ -37,7 +37,7 @@ export class UserService {
     }
 
     update(id: number, body: User){
-        return this.repository.update(id, body)
+        return this.repository.update(id, body).then(x => this.repository.findOne({id}))
     }
     
     async setPassword(id: number, body: any){

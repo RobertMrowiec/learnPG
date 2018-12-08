@@ -4,6 +4,8 @@ import { KoaMiddlewareInterface, Middleware } from "routing-controllers"
 export class ErrorHandlerMiddleware implements KoaMiddlewareInterface {
     async use(ctx: any, next: (err?: any) => Promise<any>): Promise<any> {
         try {
+            if (ctx.method === 'POST') ctx.response.status = 201
+            
             await next()
         } catch (err) {            
             ctx.status = err.httpCode || 500
