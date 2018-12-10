@@ -22,7 +22,7 @@ export class AuthService {
         const response = await bcrypt.compareSync(login.password, tempUser.password)
         if (!response) throw new UnauthorizedError('Wrong credentials')
 
-        return {
+        return { 
             user: tempUser,
             token: jwt.sign({...tempUser}, secret, { expiresIn: '1h' })
         }

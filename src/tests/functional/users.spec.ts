@@ -1,6 +1,7 @@
 import appPromise from "../../app"
 import * as request from 'supertest'
 import * as dotenv from 'dotenv'
+import getToken from '../token'
 
 let appCallback
 let tempUser
@@ -19,6 +20,7 @@ beforeAll(async () => {
             name: 'Test',
             surname: 'qwe'
         })
+        .set('Authorization', `Bearer ${getToken()}`)
         .expect(201)
         .then(({ body }) => body.user)
 })
@@ -26,7 +28,9 @@ beforeAll(async () => {
 afterAll(() => {
     return request(appCallback)
         .delete(`/users/${tempUser.id}`)
-})
+        .set('Authorization', `Bearer ${getToken()}`)
+        .expect(200)
+    })
 
 describe('Users', async () => {
 

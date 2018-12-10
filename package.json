@@ -8,7 +8,8 @@
     "testwatch": "jest --watch",
     "start": "ts-node src/index.ts",
     "dev": "./src/nodemon.json",
-    "forever": "forever start -c 'ts-node' src/index.ts"
+    "forever": "forever start -c 'ts-node' src/index.ts",
+    "foreverprod": "forever start -c 'ts-node -r dotenv/config -r' src/index.ts"
   },
   "keywords": [
     "postgres",

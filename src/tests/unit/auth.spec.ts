@@ -1,5 +1,6 @@
 import { AuthController } from '../../controllers/authController';
 import { AuthService } from "../../services/authService";
+import { UnauthorizedError } from 'routing-controllers';
 
 let controller: AuthController
 let authService: AuthService
