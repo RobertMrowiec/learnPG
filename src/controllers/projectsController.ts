@@ -17,13 +17,13 @@ export class ProjectController {
         return this.projectService.getById(id)
     }
 
-    // @Authorized()
+    @Authorized()
     @Post('/')
     add(@Body() project: Project){
         return this.projectService.add(project)
     }
 
-    // @Authorized()
+    @Authorized()
     @Patch('/:id')
     update( 
         @Param('id') id: number,
@@ -32,7 +32,7 @@ export class ProjectController {
         return this.projectService.update(id, body)
     }
 
-    // @Authorized()
+    @Authorized()
     @Put('/:id/upload')
     uploadPhoto( 
         @Param('id') id: number,
@@ -41,7 +41,7 @@ export class ProjectController {
         return this.projectService.uploadPhoto(id, file)
     }
 
-    // @Authorized()
+    @Authorized()
     @Delete('/:id')
     delete(@Param('id') id: number){
         return this.projectService.delete(id)

@@ -1,6 +1,5 @@
 const email = require('emailjs/email')
 export default function sendMail (receiver, subject, text, cc = '') {
-
     const server = email.server.connect({
         user: process.env.Mail_username,
         password: process.env.Mail_password,
