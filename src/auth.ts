@@ -19,7 +19,7 @@ export async function authFunction(action: Action) {
             throw new BadRequestError(err)
         })
         : undefined
-        
+
     if (!decoded) throw new BadRequestError('Wrong token')
     
     let currentUser = await userRepository.findOne({ id: decoded.id});

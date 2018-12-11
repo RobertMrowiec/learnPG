@@ -23,13 +23,16 @@ export class UserService {
 
     async add(user: User){
         const savedUser = await this.repository.save(user)
-        
-        sendMail(user.email, 'Thank You for register in my app', `Here is a link to generate Your password: http://localhost:3000/login/password/${savedUser.id} `)
-        
-        return {
-            status: 'Saved succesfully',
-            user: savedUser
+        try {
+            sendMail(user.email, 'Thank You for register in my app', `Here is a link to generate Your password: http://localhost:3000/login/password/${savedUser.id} `)
+        } finally {
+            return {
+                status: 'Saved succesfully',
+                user: savedUser
+            }
         }
+
+        
     }
 
     delete(id: number){

@@ -3,11 +3,11 @@ import * as request from 'supertest'
 import * as dotenv from 'dotenv'
 import { UnauthorizedError } from "routing-controllers";
 import getToken from "../token";
+
 let appCallback
 let tempUser
 
 beforeAll(async () => {
-    
     dotenv.config()
 
     await appPromise.then(({ app }) => {
@@ -23,57 +23,41 @@ beforeAll(async () => {
         })
         .set('Authorization', `Bearer ${getToken()}`)
         .then(({ body }) => body.user)
-        .then(user => {
-            return request(appCallback)
-                .post(`/users/setPassword/${user.id}`)
-                .send({ password: 'qwe' })
-        })
-        .catch(x => console.log(x))
-
-})
-
-afterAll(async () => {
+    
     await request(appCallback)
-        .delete(`/users/${tempUser.id}`)
+        .put(`/users/setPassword/${tempUser.id}`)
+        .send({ password: 'qwe' })
+        .set('Authorization', `Bearer ${getToken()}`)
 })
+
+afterAll(() => request(appCallback).delete(`/users/${tempUser.id}`).set('Authorization', `Bearer ${getToken()}`))
 
 describe('Auth', () => {
     test('Throw unauthorizedError if email is not valid', async () => {
-        await request(appCallback)
+        return request(appCallback)
             .post('/auth/login')
             .send({
                 email:'qwe',
                 password: '123'
-            })
-        expect(400)
-        expect(({ body }) => {
-            expect(body).toBeInstanceOf(UnauthorizedError)
-        })
+            }).expect(401)
     })
 
     test('Throw unauthorizedError if password is not valid', async () => {
-        await request(appCallback)
+        return request(appCallback)
             .post('/auth/login')
             .send({
-                email: process.env.Test_email,
+                email: 'testEmail@gmail.com',
                 password: '123'
-            })
-        expect(400)
-        expect(({ body }) => {
-            expect(body).toBeInstanceOf(UnauthorizedError)
-        })
+            }).expect(401)
     })
 
     test('Return object with user and token', async () => {
-        await request(appCallback)
-            .post('/users')
-            .send(tempUser)
-        expect(200)
-        expect(({ body }) => {
-            console.log(body);
-            
-            expect(body.token).toBeDefined()
-            expect(body.user).toEqual(tempUser)
+        return request(appCallback)
+            .post('/auth/login')
+            .send({email: tempUser.email, password: 'qwe'})
+            .expect(201)
+            .expect(({ body }) => {
+                expect(body.token).not.toBeNull()
+            })
         })
-    })
 })

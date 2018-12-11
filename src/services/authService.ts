@@ -20,7 +20,7 @@ export class AuthService {
         if (!tempUser) throw new UnauthorizedError('Wrong credentials')
 
         const response = await bcrypt.compareSync(login.password, tempUser.password)
-        if (!response) throw new UnauthorizedError('Wrong credentials')
+        if (!response) throw new UnauthorizedError('Authorization failed')
 
         return { 
             user: tempUser,
