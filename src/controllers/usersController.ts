@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete, Put, Authorized } from 'routing-controllers'
+import { Controller, Get, Post, Body, Param, Delete, Authorized, Patch } from 'routing-controllers'
 import { User } from '../entity/User';
 import { UserService } from '../services/userService';
 
@@ -30,12 +30,12 @@ export class UserController {
     }
 
     @Authorized()
-    @Put('/:id')
+    @Patch('/:id')
     update(@Param('id') id: number, @Body() body: User){
         return this.userService.update(id, body)
     }
 
-    @Put('/setPassword/:id')
+    @Patch('/setPassword/:id')
     setPassword(@Param('id') id: number, @Body() body: any){
         return this.userService.setPassword(id, body) 
     }

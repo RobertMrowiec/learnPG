@@ -81,8 +81,8 @@ describe('Projects', async () => {
             })
             .set('Authorization', `Bearer ${getToken()}`)
             .expect(400)
-
     })
+    
     test('Add project logo', () => {
         return request(appCallback)
             .put(`/projects/${tempProject.id}/upload`)

@@ -8,8 +8,7 @@ const verify = promisify(jwt.verify)
 
 export async function authFunction(action: Action) {
 
-    let userRepository = getConnectionManager().get().getRepository(User);    
-
+    const userRepository = getConnectionManager().get().getRepository(User);    
     const token = action.request.headers.authorization
 
     if (!token) throw new UnauthorizedError('You must provide correct token')
