@@ -22,9 +22,10 @@ export class UserService {
     }
 
     async add(user: User){
+        user.password = bcrypt.hashSync(user.password, 5)
         const savedUser = await this.repository.save(user)
         try {
-            sendMail(user.email, 'Thank You for register in my app', `Here is a link to generate Your password: http://localhost:3000/login/password/${savedUser.id} `)
+            sendMail(user.email, 'Thank You for register in my app', `Activate Your account by log in via this link: http://localhost:3000/login/password/${savedUser.id} `)
         } finally {
             return {
                 status: 'Saved succesfully',
@@ -43,11 +44,18 @@ export class UserService {
         return this.repository.update(id, body).then(x => this.repository.findOne({id}))
     }
     
-    async setPassword(id: number, body: any){
-        body.password = bcrypt.hashSync(body.password, 5)
-        await this.repository.update(id, {password: body.password, activated: true})
+    async activate(id: number, body: any){
+        const tempUser = await this.repository.findOne({id})
+        if ( tempUser && await bcrypt.compareSync(body.password, tempUser.password)){
+            await this.repository.update(id, {activated: true})
+            return {
+                status: 'Account activated',
+                user: await this.repository.findOne({id: id})
+            }
+        }
+        
         return {
-            status: 'Password saved succesfully',
+            status: 'Account activation problem',
             user: await this.repository.findOne({id: id})
         }
     }

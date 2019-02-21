@@ -1,9 +1,10 @@
 const path = require('path')
 module.exports = {
-    "host": "localhost",
-    "username": "postgres",
-    "password": "123",
-    "database": "payapp",
+    "host": process.env.RDS_HOST,
+    "username": process.env.RDS_USERNAME,
+    "password": process.env.RDS_PASSWORD,
+    "database": process.env.RDS_NAME,
+    "ssl": true,
     "type": "postgres",
     "port": 5432,
     "synchronize": true,

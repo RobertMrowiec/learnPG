@@ -17,7 +17,6 @@ export class UserController {
         return this.userService.getById(id)
     }
 
-    @Authorized()
     @Post('/')
     add(@Body() user: User){
         return this.userService.add(user)
@@ -35,8 +34,8 @@ export class UserController {
         return this.userService.update(id, body)
     }
 
-    @Put('/setPassword/:id')
-    setPassword(@Param('id') id: number, @Body() body: any){
-        return this.userService.setPassword(id, body) 
+    @Put('/activate/:id')
+    activate(@Param('id') id: number, @Body() body: any){
+        return this.userService.activate(id, body) 
     }
 }
