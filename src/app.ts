@@ -6,12 +6,12 @@ import * as dbConfiguration from '../ormconfig_dev'
 import * as awsConfiguration from '../ormconfig'
 import "reflect-metadata";
 
-let dbConf = process.env.HOME == '/Users/robert' ? dbConfiguration : awsConfiguration
+const dbConf = process.env.HOME == '/Users/robertmrowiec' ? dbConfiguration : awsConfiguration
 
 routingUserContainer(Container)
 typeormUseContainer(Container)
 
-export default createConnection(<any> dbConf).then(connection => ({
+export default createConnection(<any> dbConf).then(connection => ({ // awsConfiguration hardcoded - change before AWS deploy
     connection,
     app: createKoaServer({
         authorizationChecker: authFunction,
