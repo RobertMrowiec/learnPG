@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from "typeorm";
 import { Project } from './Project'
 
-const settlementEnum = ['B2B', 'UoP']
-type settlementMethod = 'B2B' | 'UoP'
+const settlementEnum = ['None', 'B2B', 'UoP']
+type settlementMethod = 'None' | 'B2B' | 'UoP'
 
 @Entity()
 export class User {
