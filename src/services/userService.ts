@@ -21,8 +21,9 @@ export class UserService {
         return this.repository.findOne({id})
     }
 
-    async add(user: User){
-        user.password = bcrypt.hashSync(user.password, 5)
+    async add(user: User) {
+        if (user.password) user.password = bcrypt.hashSync(user.password, 5)
+
         const savedUser = await this.repository.save(user)
         try {
             sendMail(user.email, 'Thank You for register in my app', `Activate Your account by log in via this link: http://localhost:3000/login/password/${savedUser.id} `)
@@ -32,8 +33,6 @@ export class UserService {
                 user: savedUser
             }
         }
-
-        
     }
 
     delete(id: number){

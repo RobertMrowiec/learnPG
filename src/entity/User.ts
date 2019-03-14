@@ -36,6 +36,6 @@ export class User {
     @Column({ nullable: true, type: 'numeric', precision: 10, scale: 2})
     salaryBrutto: string
 
-    @ManyToMany(type => Project, project => project.users)
+    @ManyToMany(type => Project, project => project.users, {nullable: true})
     projects: Project[]
 }
